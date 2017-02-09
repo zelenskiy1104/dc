@@ -1,7 +1,7 @@
 function TimerController($interval) {
     var ctrl = this;
 
-    ctrl.$postLink = function() {
+    ctrl.$onInit = function() {
         let startTime = Math.floor(new Date(ctrl.order.order_start_date).getTime() / 1000, 0);
         let now = Math.round(Date.now() / 1000, 0);
 
