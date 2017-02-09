@@ -25,9 +25,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://zelenskiy1104@bitbucket.org/zelenskiy1104/drone-cafe.git"
+    "url": "git+https://github.com/zelenskiy1104/dc.git"
   },
   "author": "Sergey Zelenskiy",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/zelenskiy1104/drone-cafe#readme"
+  "homepage": "https://github.com/zelenskiy1104/dc.git#readme"
 }
