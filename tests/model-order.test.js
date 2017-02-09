@@ -33,7 +33,7 @@ describe("Order", function() {
     });
 
     it("can change status", function(done){
-        var status = 'cooking';
+        var status = 'order';
 
         Order.kitchenList(status, function(collection) {
             let order = collection[0];
