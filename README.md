@@ -12,11 +12,20 @@
 ## Структура серверной части
 
 Файл index.js, который запускает сервер, принимает запросы через socket.io и вызывает нужные модели
+Модели отвечают за работу с БД
 При запуске сервера из файла menu.json парсится в БД актуальное меню
 
 ## Структура интерфейса клиента
 
+Точка входа - public/client.html
+Главный javascript-файл - public/modules/clientApp/client.js
+Остальные элементы разбиты на компоненты и храняться в папке public/modules/clientApp/components
+
 ## Структура интерфейса повара
+
+Точка входа - public/kitchen.html
+Главный javascript-файл - public/modules/kitchenApp/kitchen.js
+Остальные элементы разбиты на компоненты и храняться в папке public/modules/kitchenApp/components
 
 ## Тестирование Protractor
 
