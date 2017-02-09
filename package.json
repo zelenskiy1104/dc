@@ -4,6 +4,7 @@
   "description": "ND-3 Final Project",
   "main": "index.js",
   "dependencies": {
+    "express": "4.14.0",
     "mongodb": "2.2.21",
     "socket.io": "1.7.2",
     "netology-fake-drone-api" : "1.0.1"
