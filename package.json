@@ -1,0 +1,30 @@
+{
+  "name": "drone-cafe",
+  "version": "1.0.0",
+  "description": "ND-3 Final Project",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "2.2.21",
+    "socket.io": "1.7.2",
+    "netology-fake-drone-api" : "1.0.1"
+  },
+  "devDependencies": {
+    "protractor": "^4.0.9",
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0"
+  },
+  "scripts": {
+    "mocha": "mocha tests",
+
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "protractor": "protractor e2e-tests/protractor.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://zelenskiy1104@bitbucket.org/zelenskiy1104/drone-cafe.git"
+  },
+  "author": "Sergey Zelenskiy",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/zelenskiy1104/drone-cafe#readme"
+}

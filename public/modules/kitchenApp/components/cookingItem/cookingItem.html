@@ -1,0 +1,7 @@
+<li class="collection-item avatar cooking-list-item">
+    <img ng-src="{{$ctrl.item.menu_item[0].image}}" alt="" class="circle">
+    <p><timer ng-if="$ctrl.item.status == 'cooking'" order="$ctrl.item"></timer></p>
+    <span class="title">{{$ctrl.item.menu_item[0].title}}</span>
+    <hr>
+    <a href="#" ng-click="$ctrl.startDelievery()">Готово</a>
+</li>

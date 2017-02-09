@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="clientApp">
+<head>
+
+    <title>Drone Cafe</title>
+
+    <link href="img/client.ico" rel="icon" type="image/x-icon" />
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body ng-controller="RootController as root">
+
+<div ng-switch on="root.auth">
+    <div class="row" ng-switch-when="false">
+        <auth on-status-change="root.auth = $event.status" has-user-data="root.userdata = $event.userdata"></auth>
+    </div>
+
+    <div class="row" ng-switch-when="true">
+        <div class="col s6 m3">
+            <div class="card green darken-3">
+                <div class="card-content white-text">
+                    <span class="card-title">{{ root.userdata.name }}</span>
+                    <p class="user-email">{{ root.userdata.email }}</p>
+                    <p>Баланс: <span class="user-balance">{{ root.userdata.balance }}</span> ГК</p>
+                </div>
+                <div class="card-action">
+                    <a class="increase-balance" href="#" ng-click="root.increaseBalance()">Пополнить баланс</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s6 m9">
+            <order-list></order-list>
+        </div>
+
+    </div>
+</div>
+
+<div id="menu" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Меню</h4>
+        <menu-list ng-if="root.auth" balance="root.userdata.balance"></menu-list>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" id="menu-close" class="modal-action modal-close waves-effect waves-green btn-flat ">Закрыть меню</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
+</script>
+
+<script src="modules/clientApp/client.js"></script>
+<script src="modules/clientApp/components/menuList/menuList.js"></script>
+<script src="modules/clientApp/components/menuItem/menuItem.js"></script>
+<script src="modules/clientApp/components/orderList/orderList.js"></script>
+<script src="modules/clientApp/components/orderItem/orderItem.js"></script>
+<script src="modules/clientApp/components/timer/timer.js"></script>
+<script src="modules/clientApp/services.js"></script>
+
+<script src="modules/clientApp/components/auth/auth.js"></script>
+
+</body>
+</html>
