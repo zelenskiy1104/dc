@@ -24,8 +24,8 @@ app.get('/kitchen', function(req, res){
     res.sendFile('public/kitchen.html', { root: __dirname });
 });
 
-server.listen(3000, function() {
-    console.log('Listening on port 3000...');
+server.listen(port, function() {
+    console.log('Listening on port '+port);
 });
 
 io.on('connection', function (socket) {
