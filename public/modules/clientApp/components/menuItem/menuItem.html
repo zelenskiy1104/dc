@@ -2,6 +2,6 @@
     <img ng-src="{{ $ctrl.item.image }}" alt="" class="circle">
     <span class="title">{{$ctrl.item.title}}</span>
     <p>{{$ctrl.item.price}} ГК</p>
-    <a ng-if="$ctrl.canOrder" href="#" class="secondary-content" ng-click="$ctrl.addToOrder()"><i class="material-icons">shopping_cart</i></a>
+    <a ng-if="$ctrl.canOrder" href="#" class="secondary-content" ng-click="$ctrl.addToOrder()"><i class="material-icons">+ добавить</i></a>
     <span ng-if="!$ctrl.canOrder" class="secondary-content">пополните баланс на {{ $ctrl.difference }} ГК</span>
 </li>
