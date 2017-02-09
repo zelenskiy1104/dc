@@ -1,11 +1,11 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb://localhost:27017/drone-cafe';
+const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
 let menuJson = require('./menu.json');
 
 exports.parseMenu = function() {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;

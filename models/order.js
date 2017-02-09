@@ -1,6 +1,6 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb://localhost:27017/drone-cafe';
+const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
 exports.changeStatus = function(status, id, done) {
     callChangeStatus(status, id, (err, result) => {
@@ -9,7 +9,7 @@ exports.changeStatus = function(status, id, done) {
 }
 
 function callChangeStatus(status, id, callback) {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;
@@ -83,7 +83,7 @@ exports.dropOrder = function(id, email, done) {
 }
 
 function callDropOrder(id, email, callback) {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;
@@ -124,7 +124,7 @@ exports.kitchenList = function(status, done) {
 }
 
 function callKitchenList(status, callback) {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;
@@ -166,7 +166,7 @@ exports.list = function(user_id, done) {
 }
 
 function callList(user_id, callback) {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;
@@ -208,7 +208,7 @@ exports.create = function(menu, user_id, done) {
 }
 
 function callCreate(menu, user_id, callback) {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(URI, (err, db) => {
         if (err) {
             console.log('Проблема с соединением с базой данных: ', err);
             return;
