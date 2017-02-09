@@ -17,6 +17,8 @@
   "scripts": {
     "mocha": "mocha tests",
 
+    "start": "node index.js",
+
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "protractor": "protractor e2e-tests/protractor.conf.js"
