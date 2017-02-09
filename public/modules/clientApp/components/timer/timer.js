@@ -2,7 +2,7 @@ function TimerController($interval) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
-        let startTime = Math.round(new Date(ctrl.order.order_start_date).getTime() / 1000, 0);
+        let startTime = Math.floor(new Date(ctrl.order.order_start_date).getTime() / 1000, 0);
         let now = Math.round(Date.now() / 1000, 0);
 
         if (ctrl.order.status == 'ready' || ctrl.order.status == 'troubles') {
