@@ -2,6 +2,8 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
+const Error = require('../classes/Error');
+
 exports.auth = function(name, email, socketid, done) {
     callAuth(name, email, socketid, (err, result) => {
         done(result);
@@ -11,7 +13,8 @@ exports.auth = function(name, email, socketid, done) {
 function callAuth(name, email, socketid, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -19,15 +22,17 @@ function callAuth(name, email, socketid, callback) {
 
         collection.find({email: email}).toArray((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
             if (result.length == 0) {
                 collection.insertOne({name: name, email: email, balance: 100, socketid: socketid}, (err, result) => {
                     if (err) {
-                        console.log('Проблема с соединением с базой данных: ', err);
-                        console.log(err);
+                        let e = new Error(err, 'db');
+                        e.log();
+                        return;
                     }
 
                     db.close();
@@ -38,8 +43,9 @@ function callAuth(name, email, socketid, callback) {
                 var founded = result[0];
                 collection.updateOne({email: email}, {$set: {name: name, socketid: socketid}}, (err, result) => {
                     if (err) {
-                        console.log('Проблема с соединением с базой данных: ', err);
-                        console.log(err);
+                        let e = new Error(err, 'db');
+                        e.log();
+                        return;
                     }
 
                     db.close();
@@ -65,7 +71,8 @@ exports.changeBalance = function(email, sum, done) {
 function callChangeBalance(email, sum, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -73,7 +80,8 @@ function callChangeBalance(email, sum, callback) {
 
         collection.find({email: email}).toArray((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
@@ -81,8 +89,9 @@ function callChangeBalance(email, sum, callback) {
                 var founded = result[0];
                 collection.updateOne({email: email}, {$set: {balance: founded.balance + sum}}, (err, result) => {
                     if (err) {
-                        console.log('Проблема с соединением с базой данных: ', err);
-                        console.log(err);
+                        let e = new Error(err, 'db');
+                        e.log();
+                        return;
                     }
 
                     db.close();

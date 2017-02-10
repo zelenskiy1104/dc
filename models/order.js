@@ -2,6 +2,8 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
+const Error = require('../classes/Error');
+
 exports.changeStatus = function(status, id, done) {
     callChangeStatus(status, id, (err, result) => {
         done(result);
@@ -11,7 +13,8 @@ exports.changeStatus = function(status, id, done) {
 function callChangeStatus(status, id, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -41,7 +44,8 @@ function callChangeStatus(status, id, callback) {
             }
         ]).get((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
@@ -63,8 +67,9 @@ function callChangeStatus(status, id, callback) {
 
             collection.updateOne({_id: new mongodb.ObjectId(id)}, {$set: {status: status, cooking_start_date: cookingStartDate, cooking_finish_date: cookingFinishDate}}, (err, result) => {
                 if (err) {
-                    console.log('Проблема с соединением с базой данных: ', err);
-                    console.log(err);
+                    let e = new Error(err, 'db');
+                    e.log();
+                    return;
                 }
 
                 db.close();
@@ -85,7 +90,8 @@ exports.dropOrder = function(id, email, done) {
 function callDropOrder(id, email, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -93,7 +99,8 @@ function callDropOrder(id, email, callback) {
 
         users.find({email: email}).toArray((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
@@ -104,8 +111,9 @@ function callDropOrder(id, email, callback) {
 
                 orders.removeOne({_id: new mongodb.ObjectID(id)}, function(err, result) {
                     if (err) {
-                        console.log(err);
-                        throw err;
+                        let e = new Error(err, 'db');
+                        e.log();
+                        return;
                     }
 
                     db.close();
@@ -126,7 +134,8 @@ exports.kitchenList = function(status, done) {
 function callKitchenList(status, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -147,7 +156,8 @@ function callKitchenList(status, callback) {
             }
         ]).get((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
@@ -168,7 +178,8 @@ exports.list = function(user_id, done) {
 function callList(user_id, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -189,7 +200,8 @@ function callList(user_id, callback) {
             }
         ]).get((err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
+                let e = new Error(err, 'db');
+                e.log();
                 return;
             }
 
@@ -210,7 +222,8 @@ exports.create = function(menu, user_id, done) {
 function callCreate(menu, user_id, callback) {
     MongoClient.connect(URI, (err, db) => {
         if (err) {
-            console.log('Проблема с соединением с базой данных: ', err);
+            let e = new Error(err, 'connect');
+            e.log();
             return;
         }
 
@@ -226,8 +239,9 @@ function callCreate(menu, user_id, callback) {
         
         collection.insertOne(order, (err, result) => {
             if (err) {
-                console.log('Проблема с соединением с базой данных: ', err);
-                console.log(err);
+                let e = new Error(err, 'db');
+                e.log();
+                return;
             }
 
             db.close();
