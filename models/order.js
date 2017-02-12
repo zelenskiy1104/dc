@@ -156,7 +156,7 @@ function callKitchenList(status, callback) {
             },
             {
                 $project: {
-                    currentDate: new Date(),
+                    currentDate: { $add: [new Date()] },
                     menu_item: 1,
                     user_id: 1,
                     menu_id: 1,
@@ -212,7 +212,7 @@ function callList(user_id, callback) {
             },
             {
                 $project: {
-                    currentDate: new Date(),
+                    currentDate: { $add: [new Date()] },
                     menu_item: 1,
                     user_id: 1,
                     menu_id: 1,
