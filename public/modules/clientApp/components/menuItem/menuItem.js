@@ -1,10 +1,14 @@
 function MenuItemController(socket) {
     var ctrl = this;
 
+    ctrl.addLinkText = 'добавить';
+
     this.addToOrder = function() {
         socket.emit('add to order', {
             menu: this.item
         });
+
+        ctrl.addLinkText = 'добавить ещё'
     }
 
     ctrl.$onChanges = function() {

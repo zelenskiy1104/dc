@@ -1,6 +1,12 @@
 function OrderItemController(socket) {
     var ctrl = this;
 
+    ctrl.cancelOrder = function() {
+        socket.emit('cancel order', {
+            order: this.item
+        });
+    }
+
     ctrl.troubles = function(resolution) {
         socket.emit('troubles resolution', {
             order: this.item,

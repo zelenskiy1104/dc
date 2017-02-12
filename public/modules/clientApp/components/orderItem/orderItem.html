@@ -10,6 +10,10 @@
 
     <timer order="$ctrl.item"></timer>
 
+    <div ng-if="$ctrl.item.status == 'order'">
+        <a class="waves-effect waves-light btn" ng-click="$ctrl.cancelOrder()">Отменить заказ</a>
+    </div>
+
     <div ng-if="$ctrl.item.status == 'troubles'">
         <a class="waves-effect waves-light btn" ng-click="$ctrl.troubles('no')">Отменить заказ</a>
         <a class="waves-effect waves-light btn" ng-click="$ctrl.troubles('yes')">Повторить заказ со скидкой 5%</a>

@@ -81,9 +81,28 @@ io.on('connection', function (socket) {
         });
     });
 
+    socket.on('cancel order', function (data) {
+        if (data.order.status == 'order') {
+            Order.dropOrder(data.order._id, socket.userdata.email, (result) => {
+                if (result.status == 1) {
+
+                    let menu = data.order.menu_item[0];
+                    User.changeBalance(socket.userdata.email, menu.price, function(data) {
+                        socket.userdata.balance = data.balance;
+
+                        socket.emit('balance updated', data);
+                    });
+
+                    socket.emit('order updated');
+                    socket.broadcast.emit('order lists updated');
+                }
+            });
+        }
+    });
+
     socket.on('troubles resolution', function (data) {
-        Order.dropOrder(data.order._id, (result) => {
-            if (result == 1) {
+        Order.dropOrder(data.order._id, socket.userdata.email, (result) => {
+            if (result.status == 1) {
                 socket.emit('order updated');
             }
         });
