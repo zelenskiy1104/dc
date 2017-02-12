@@ -60,12 +60,12 @@ function callChangeStatus(status, id, callback) {
                 cookingStartDate = new Date();
             }
 
-            let cookingFinishDate = false;
+            let orderFinishDate = false;
             if (status == 'ready' || status == 'troubles') {
-                cookingFinishDate = new Date();
+                orderFinishDate = new Date();
             }
 
-            collection.updateOne({_id: new mongodb.ObjectId(id)}, {$set: {status: status, cooking_start_date: cookingStartDate, cooking_finish_date: cookingFinishDate}}, (err, result) => {
+            collection.updateOne({_id: new mongodb.ObjectId(id)}, {$set: {status: status, cooking_start_date: cookingStartDate, order_finish_date: orderFinishDate}}, (err, result) => {
                 if (err) {
                     let e = new Error(err, 'db');
                     e.log();
@@ -147,13 +147,25 @@ function callKitchenList(status, callback) {
             },
             {
                 $lookup :
-                    {
-                        from: "menu",
-                        localField: "menu_id",
-                        foreignField: "id",
-                        as: "menu_item"
-                    }
-            }
+                {
+                    from: "menu",
+                    localField: "menu_id",
+                    foreignField: "id",
+                    as: "menu_item"
+                },
+            },
+            {
+                $project: {
+                    currentDate: new Date(),
+                    menu_item: 1,
+                    user_id: 1,
+                    menu_id: 1,
+                    status: 1,
+                    order_start_date: 1,
+                    cooking_start_date: 1,
+                    order_finish_date: 1,
+                }
+            },
         ]).get((err, result) => {
             if (err) {
                 let e = new Error(err, 'db');
@@ -197,7 +209,20 @@ function callList(user_id, callback) {
                     foreignField: "id",
                     as: "menu_item"
                 }
-            }
+            },
+            {
+                $project: {
+                    currentDate: new Date(),
+                    menu_item: 1,
+                    user_id: 1,
+                    menu_id: 1,
+                    status: 1,
+                    order_start_date: 1,
+                    cooking_start_date: 1,
+                    order_finish_date: 1,
+                }
+            },
+
         ]).get((err, result) => {
             if (err) {
                 let e = new Error(err, 'db');

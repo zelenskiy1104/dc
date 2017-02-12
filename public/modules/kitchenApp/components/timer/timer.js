@@ -2,8 +2,8 @@ function TimerController($interval) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
-        let startTime = Math.round(new Date(ctrl.order.cooking_start_date).getTime() / 1000, 0);
-        let now = Math.floor(Date.now() / 1000, 0);
+        let startTime = Math.floor(new Date(ctrl.order.cooking_start_date).getTime() / 1000, 0);
+        let now = Math.floor(new Date(ctrl.order.currentDate).getTime() / 1000, 0);
         ctrl.timerValue = now - startTime;
     }
 
