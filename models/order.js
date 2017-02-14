@@ -5,8 +5,12 @@ const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 const Error = require('../classes/Error');
 
 /*
- * Функция для изменения статуса заказа
- * */
+ * Изменить статус заказа
+ *
+ * @param status Новый статус
+ * @param id Идентификатор заказа
+ * @param done callback
+ */
 
 exports.changeStatus = function(status, id, done) {
     callChangeStatus(status, id, (err, result) => {
@@ -86,8 +90,12 @@ function callChangeStatus(status, id, callback) {
 }
 
 /*
- * Функция для удаления заказа
- * */
+ * Удалить заказ
+ *
+ * @param id Идентификатор заказа
+ * @param email Email пользователя
+ * @param done callback
+ */
 
 exports.dropOrder = function(id, email, done) {
     callDropOrder(id, email, (err, result) => {
@@ -134,8 +142,11 @@ function callDropOrder(id, email, callback) {
 }
 
 /*
- * Функция для получения заказов интерфейсом кухни
- * */
+ * Получение списка заказов для интерфейса кухни
+ *
+ * @param status Статус заказов для запроса
+ * @param done callback
+ */
 
 exports.kitchenList = function(status, done) {
     callKitchenList(status, (err, result) => {
@@ -194,8 +205,11 @@ function callKitchenList(status, callback) {
 }
 
 /*
- * Функция для получения заказов интерфейсом клиента
- * */
+ * Получение списка заказов для интерфейса клиента
+ *
+ * @param user_id Идентификатор пользователя
+ * @param done callback
+ */
 
 exports.list = function(user_id, done) {
     callList(user_id, (err, result) => {
@@ -255,8 +269,12 @@ function callList(user_id, callback) {
 }
 
 /*
- * Функция для создания заказа
- * */
+ * Создать заказ
+ *
+ * @param menu Объект menu
+ * @param user_id Идентификатор пользователя
+ * @param done callback
+ */
 
 exports.create = function(menu, user_id, done) {
     callCreate(menu, user_id, (err, result) => {

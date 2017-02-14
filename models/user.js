@@ -6,7 +6,12 @@ const Error = require('../classes/Error');
 
 /*
  * Авторизация клиента
- * */
+ *
+ * @param name Имя
+ * @param email Email
+ * @param socketid Идентификатор вебсокета
+ * @param done callback
+ */
 
 exports.auth = function(name, email, socketid, done) {
     callAuth(name, email, socketid, (err, result) => {
@@ -67,8 +72,12 @@ function callAuth(name, email, socketid, callback) {
 }
 
 /*
- * Функция для изменения баланса клиента
- * */
+ * Изменить баланс клиента
+ *
+ * @param email Email клиента
+ * @param sum Сумма
+ * @param done callback
+ */
 
 exports.changeBalance = function(email, sum, done) {
     callChangeBalance(email, sum, (err, result) => {

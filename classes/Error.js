@@ -1,12 +1,15 @@
 /*
-* Класс для обработки ошибок и вывода их в UI
+* Обработка ошибок и вывода их в UI
 * */
 
 module.exports = class Error {
 
     /*
-     * Конструктор, принимает ошибку и тип ошибки
-     * */
+     * Конструктор
+     *
+     * @param err Объект ошибки
+     * @param type Тип ошибки
+     */
 
     constructor(err, type) {
 
@@ -24,8 +27,8 @@ module.exports = class Error {
     }
 
     /*
-     * Выводит ошибку в консоль
-     * */
+     * Вывод ошибки в консоль
+     */
 
     log() {
         console.log(this.txt + this.err);
