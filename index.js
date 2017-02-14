@@ -16,10 +16,12 @@ const Order = require(mainDir+'/models/order');
 
 app.use(express.static(__dirname + '/public'));
 
+// Страница интерфейса клиента
 app.get('/', function(req, res){
     res.sendFile('./public/client.html', { root: __dirname });
 });
 
+// Страница интерфейса кухни
 app.get('/kitchen', function(req, res){
     res.sendFile('public/kitchen.html', { root: __dirname });
 });
@@ -32,6 +34,7 @@ io.on('connection', function (socket) {
 
     socket.emit('connected', {socketid: socket.id});
 
+    // Авторизация
     socket.on('do auth', function (data) {
         var name = data.name;
         var email = data.email;
@@ -44,6 +47,7 @@ io.on('connection', function (socket) {
         });
     });
 
+    // Запрос смены баланса
     socket.on('change balance', function (data) {
         var sum = data.sum;
 
@@ -54,18 +58,21 @@ io.on('connection', function (socket) {
         });
     });
 
+    // Запрос меню
     socket.on('get menu', function () {
         Menu.list(function(collection) {
             socket.emit('menu', collection);
         });
     });
 
+    // Запрос списка заказов
     socket.on('get orders', function () {
         Order.list(socket.userdata._id, function(collection) {
             socket.emit('orders list', collection);
         });
     });
 
+    // Добавить блюдо в заказ
     socket.on('add to order', function (data) {
         Order.create(data.menu, socket.userdata._id, function(data) {
             if (data.status == 'ok') {
@@ -81,6 +88,7 @@ io.on('connection', function (socket) {
         });
     });
 
+    // Отменить заказ
     socket.on('cancel order', function (data) {
         if (data.order.status == 'order') {
             Order.dropOrder(data.order._id, socket.userdata.email, (result) => {
@@ -100,6 +108,7 @@ io.on('connection', function (socket) {
         }
     });
 
+    // Клиент решает, что делать с недоставленным заказом
     socket.on('troubles resolution', function (data) {
         Order.dropOrder(data.order._id, socket.userdata.email, (result) => {
             if (result.status == 1) {
@@ -125,6 +134,7 @@ io.on('connection', function (socket) {
         }
     });
 
+    // Запрос списка заказов для интерфейса кухни
     socket.on('get kitchen orders', function (data) {
         Order.kitchenList(data.status, function(collection) {
             if (data.status == 'order') {
@@ -136,6 +146,7 @@ io.on('connection', function (socket) {
         });
     });
 
+    // Начать готовить
     socket.on('start cooking', function (data) {
         Order.changeStatus('cooking', data.id, function(result) {
             let res = result.result.result.nModified;
@@ -146,6 +157,7 @@ io.on('connection', function (socket) {
         });
     });
 
+    // Начать доставку
     socket.on('start delievery', function (data) {
         Order.changeStatus('delievery', data.id, function(result) {
             let res = result.result.result.nModified;

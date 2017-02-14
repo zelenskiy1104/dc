@@ -1,3 +1,7 @@
+/*
+ * Когда загружена главная страница
+ * */
+
 describe('When load main page', function() {
     beforeEach(function() {
         browser.get('/');

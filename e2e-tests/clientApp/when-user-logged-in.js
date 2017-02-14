@@ -1,3 +1,7 @@
+/*
+ * Когда пользователь залогинен
+ * */
+
 describe('When user logged in', function() {
     beforeEach(function() {
         browser.get('/');

@@ -4,6 +4,10 @@ const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
 const Error = require('../classes/Error');
 
+/*
+ * Функция для изменения статуса заказа
+ * */
+
 exports.changeStatus = function(status, id, done) {
     callChangeStatus(status, id, (err, result) => {
         done(result);
@@ -81,6 +85,10 @@ function callChangeStatus(status, id, callback) {
     });
 }
 
+/*
+ * Функция для удаления заказа
+ * */
+
 exports.dropOrder = function(id, email, done) {
     callDropOrder(id, email, (err, result) => {
         done(result);
@@ -124,6 +132,10 @@ function callDropOrder(id, email, callback) {
         });
     });
 }
+
+/*
+ * Функция для получения заказов интерфейсом кухни
+ * */
 
 exports.kitchenList = function(status, done) {
     callKitchenList(status, (err, result) => {
@@ -181,6 +193,10 @@ function callKitchenList(status, callback) {
     });
 }
 
+/*
+ * Функция для получения заказов интерфейсом клиента
+ * */
+
 exports.list = function(user_id, done) {
     callList(user_id, (err, result) => {
         done(result);
@@ -237,6 +253,10 @@ function callList(user_id, callback) {
 
     });
 }
+
+/*
+ * Функция для создания заказа
+ * */
 
 exports.create = function(menu, user_id, done) {
     callCreate(menu, user_id, (err, result) => {

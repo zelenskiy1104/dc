@@ -3,6 +3,10 @@ let assert = require('chai').assert;
 const Order = require('../models/order');
 const User = require('../models/user');
 
+/*
+ * Тесты модели order
+ * */
+
 describe("Order", function() {
     it("user can add item to order", function(done){
         var name = 'Mocha';

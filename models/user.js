@@ -4,6 +4,10 @@ const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
 const Error = require('../classes/Error');
 
+/*
+ * Авторизация клиента
+ * */
+
 exports.auth = function(name, email, socketid, done) {
     callAuth(name, email, socketid, (err, result) => {
         done(result);
@@ -61,6 +65,10 @@ function callAuth(name, email, socketid, callback) {
         });
     });
 }
+
+/*
+ * Функция для изменения баланса клиента
+ * */
 
 exports.changeBalance = function(email, sum, done) {
     callChangeBalance(email, sum, (err, result) => {

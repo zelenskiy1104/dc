@@ -4,6 +4,10 @@ const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/drone-cafe';
 
 const Error = require('../classes/Error');
 
+/*
+ * Функция для получения списка с меню
+ * */
+
 exports.list = function(done) {
     callList((err, result) => {
         done(result);

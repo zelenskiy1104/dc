@@ -1,4 +1,13 @@
+/*
+* Класс для обработки ошибок и вывода их в UI
+* */
+
 module.exports = class Error {
+
+    /*
+     * Конструктор, принимает ошибку и тип ошибки
+     * */
+
     constructor(err, type) {
 
         this.err = err;
@@ -13,6 +22,10 @@ module.exports = class Error {
             this.txt = 'Ошибка БД: ';
         }
     }
+
+    /*
+     * Выводит ошибку в консоль
+     * */
 
     log() {
         console.log(this.txt + this.err);

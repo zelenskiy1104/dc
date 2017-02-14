@@ -4,6 +4,7 @@ function AuthController(socket) {
     ctrl.name = '';
     ctrl.email = '';
 
+    // Авторизация
     this.doAuth = function() {
         socket.emit('do auth', {
             name: this.name,
@@ -14,6 +15,7 @@ function AuthController(socket) {
 
     ctrl.authorized = false;
 
+    // Когда приходит положительный ответ на авторизацию
     socket.on('authorized', (data) => {
         if (data.status === 'ok') {
             ctrl.authorized = true;

@@ -1,12 +1,14 @@
 function OrderItemController(socket) {
     var ctrl = this;
 
+    // Отменить заказ
     ctrl.cancelOrder = function() {
         socket.emit('cancel order', {
             order: this.item
         });
     }
 
+    // Ответ на статус "возникли сложности"
     ctrl.troubles = function(resolution) {
         socket.emit('troubles resolution', {
             order: this.item,
@@ -14,6 +16,7 @@ function OrderItemController(socket) {
         });
     }
 
+    // Перевод статусов на русский язык
     ctrl.translate = function(status) {
         var dictionary = {
             order: 'заказано',

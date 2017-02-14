@@ -2,6 +2,10 @@ let assert = require('chai').assert;
 
 const User = require('../models/user');
 
+/*
+ * Тесты модели user
+ * */
+
 describe("User", function() {
     it("when auth returns user data", function(done){
         var name = 'Mocha';

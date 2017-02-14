@@ -3,6 +3,7 @@ function MenuItemController(socket) {
 
     ctrl.addLinkText = 'добавить';
 
+    // Добавить блюдо в заказ
     this.addToOrder = function() {
         socket.emit('add to order', {
             menu: this.item
@@ -11,6 +12,7 @@ function MenuItemController(socket) {
         ctrl.addLinkText = 'добавить ещё'
     }
 
+    // Определяем, хватает ли денег для заказа
     ctrl.$onChanges = function() {
         ctrl.canOrder = true;
         ctrl.difference = ctrl.item.price - ctrl.balance;

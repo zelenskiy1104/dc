@@ -1,3 +1,7 @@
+/*
+ * Когда загружена страница кухни
+ * */
+
 describe('When load kitchen page', function() {
     beforeEach(function() {
         browser.get('/kitchen');

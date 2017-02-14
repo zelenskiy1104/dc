@@ -1,6 +1,7 @@
 function CookingItemController(socket) {
     var ctrl = this;
 
+    // Начинаем доставку
     this.startDelievery = function() {
         socket.emit('start delievery', {
             id: this.item._id
